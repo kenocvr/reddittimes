@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="http://j.mp/jqymin"></script>
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles.css">
+  <title>The Reddit Times</title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+  <div class="head">
+    <div class="headerobjectswrapper">
+      <header>The Reddit Times</header>
+    </div>
+    <div class="subhead">Las Vegas, NV - Saturday September 16,2017</div>
+  </div>
+  <div class="content">
+    <div class="collumns">
+      <div class="collumn">
+        <div class="head"><a href="title1" target="_blank"><span class="headline hl3" id="title1"></a></span>
+          <p><span class="headline hl4" id="votes1"></span></p>
+        </div>
+        <figure class="figure">
+          <img class="media" id="title1img" src="https://b.thumbs.redditmedia.com/Fl-cXNu3le8bd7hMbHYujBzFwWo7NcQcO64NGVK9nzM.jpg" alt="">
+          <figcaption class="figcaption" id="figcaption1">Hermine hoping for courage.</figcaption>
+        </figure>
+        <p id="p1"></p>
+      </div>
+      <div class="collumn">
+        <div class="head"><span class="headline hl1" id="title2">Give people courage</span>
+          <p><span class="headline hl4" id="votes2">The crowd seemed to grow</span></p>
+        </div>
+        <figure class="figure">
+          <img class="media" id="title2img" src="https://b.thumbs.redditmedia.com/Fl-cXNu3le8bd7hMbHYujBzFwWo7NcQcO64NGVK9nzM.jpg" alt="">
+          <figcaption class="figcaption" id="figcaption2">Hermine hoping for courage.</figcaption>
+        </figure>
+        <p id="p2"></p>
+      </div>
+      <div class="collumn">
+        <div class="head"><span class="headline hl1" id="title3"></span>
+          <p><span class="headline hl4" id="votes3"></span></p>
+        </div>
+        </p>
+        <figure class="figure">
+          <img class="media" id="title3img" src="http://i.giphy.com/4fDWVPMoSyhgc.gif" alt="">
+          <figcaption class="figcaption" id="figcaption3">"This time, let go your conscious self and act on instinct."</figcaption>
+        </figure>
+        <p id="3"><span class="citation"></span></p>
+      </div>
+      <div class="collumn">
+        <div class="head"><span class="headline hl1" id="title4">The buzz of the little world </span>
+          <p><span class="headline hl4" id="votes4">A thousand unknown plants</span></p>
+        </div>
+        <figure class="figure">
+          <img class="media" id="title4img" src="https://b.thumbs.redditmedia.com/Fl-cXNu3le8bd7hMbHYujBzFwWo7NcQcO64NGVK9nzM.jpg" alt="">
+          <figcaption class="figcaption" id="figcaption4">Hermine hoping for courage.</figcaption>
+        </figure>
+        <p id="4"></p>
+      </div>
+      <div class="collumn">
+        <div class="head"><span class="headline hl1" id="title5">It wasn't a dream </span>
+          <p><span class="headline hl4" id="votes5">by FRANZ KAFKA</span></p>
+        </div>
+        <figure class="figure">
+          <img class="media" id="title5img" src="https://b.thumbs.redditmedia.com/Fl-cXNu3le8bd7hMbHYujBzFwWo7NcQcO64NGVK9nzM.jpg" alt="">
+          <figcaption class="figcaption" id="figcaption5">Hermine hoping for courage.</figcaption>
+        </figure>
+        <p id="5"> </p>
+      </div>
+    </div>
+  </div>
+  <div id="reddit-content">
+  </div>
+  <script>
+    $.getJSON(
+        "http://www.reddit.com/r/politics.json?jsonp=?",
+        function foo(data) {
+
+          const arr = data.data.children;
+          console.log(arr);
+          console.log(arr[0].data.title);
+
+
+          $.each(
+            data.data.children.slice(0, 10),
+            function(i, post) {
+
+              $("#title1").html(arr[0].data.title);
+              $("#title2").html(arr[1].data.title);
+              $("#title3").html(arr[2].data.title);
+              $("#title4").html(arr[3].data.title);
+              $("#title5").html(arr[4].data.title);
+              $("#title6").html(arr[5].data.title);
+
+              $("#votes1").html("Votes: " + arr[0].data.score);
+              $("#votes2").html("Votes: " + arr[1].data.score);
+              $("#votes3").html("Votes: " + arr[2].data.score);
+              $("#votes4").html("Votes: " + arr[3].data.score);
+              $("#votes5").html("Votes: " + arr[4].data.score);
+
+              // img src
+              if(arr[0].data.hasOwnProperty('preview')) {
+                $("#title1img").attr("src", arr[0].data.preview.images[0].source.url);
+              }
+                console.log(arr[0].data.url);
+                $("a[href='title1']").attr('href', arr[0].data.url);
+
+              $("#title2img").attr("src", arr[1].data.preview.images[0].source.url);
+              $("#title3img").attr("src", arr[2].data.preview.images[0].source.url);
+              $("#title4img").attr("src", arr[3].data.preview.images[0].source.url);
+              $("#title5img").attr("src", arr[4].data.preview.images[0].source.url);
+              // img alt
+              $("#figcaption1").html(arr[0].data.domain);
+              $("#figcaption2").html(arr[1].data.domain);
+              $("#figcaption3").html(arr[2].data.domain);
+              $("#figcaption4").html(arr[3].data.domain);
+              $("#figcaption5").html(arr[4].data.domain);
+
+
+
+              // Testing Reddit API endpoints
+              // $("#reddit-content").append('<br>' + post.data.title);
+              // $("#reddit-content").append('<br>' + post.data.url);
+              // $("#reddit-content").append('<br>' + post.data.permalink);
+              // $("#reddit-content").append('<br>' + post.data.ups);
+              // $("#reddit-content").append('<br>' + post.data.downs);
+              // $("#reddit-content").append('<hr>');
+            }
+          )
+        }
+
+      )
+      .success(function() {
+        alert("second success");
+      })
+      .error(function() {
+        alert("error");
+      })
+      .complete(function() {
+        alert("complete");
+      });
+  </script>
+
+</body>
+
+</html>
